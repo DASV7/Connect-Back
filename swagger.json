@@ -1,0 +1,10 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "swagger Documentation Connect",
+    "version": "3.0.0"
+  },
+  "basePath": "/",
+  "paths": {},
+  "definitions": {}
+}
