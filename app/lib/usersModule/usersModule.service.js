@@ -28,7 +28,7 @@ module.exports = {
     },
     loginUser: async (query) => {
         const { email, password } = query
-        const user = await User.findOne({ email }, userprojection).lean();
+        const user = await User.findOne({ email }, userprojection+ " password").lean();
         if (!user) throw { message: "El usuario no existe", codeStatus: 404 };
         const isMatch = await bycrypt.compare(password, user.password);
         if (!isMatch) throw { message: "Contraseña incorrecta", codeStatus: 401 };
