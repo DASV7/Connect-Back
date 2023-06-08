@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const route = Router();
-const { createNewUser } = require("../lib/usersModule/usersModule.controller")
+const { createNewUser, initSesionUser } = require("../lib/usersModule/usersModule.controller")
 const { isMongoReady } = require("../helpers/validateRoute.mdwr");
 
 module.exports = (app) => {
@@ -24,4 +24,24 @@ module.exports = (app) => {
      */
 
     route.post('/', isMongoReady, createNewUser);
+
+    /**
+    * @swagger
+    * /api/v1/usersModule:
+    *  post:
+    *    description: Login de usuario
+    *    responses:
+    *      200:
+    *        description: Usuario Logeado correctamente
+    *      500:
+    *        description: Ocurrió un error inesperado
+    *    parameters:
+    *      - name: options
+    *        in: query
+    *        description: Opciones de consulta
+    *        required: false
+    */
+    route.post('/login', isMongoReady, initSesionUser);
+
+
 }

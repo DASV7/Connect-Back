@@ -32,7 +32,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //call routes with prefix
 app.use(config.api.prefix, routes());
 
-app.listen(config.port, (params) => {
+app.listen(process.env.PORT || config.port, (params) => {
     console.log(`
     ####################################################
     Server listening on port: http://localhost:${config.port}
