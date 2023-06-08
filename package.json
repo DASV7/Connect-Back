@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "local": "nodemon main.js --watch",    
+    "local": "nodemon main.js --watch",
     "start": "node main.js"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "jsonwebtoken": "^9.0.0",
     "local": "^0.3.3",
     "mongoose": "^7.0.2",
+    "node-cron": "^3.0.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
   },
