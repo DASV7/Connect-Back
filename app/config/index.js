@@ -5,6 +5,7 @@ module.exports = {
     api: {
         prefix: '/api/v1/'
     },
+    socket:"http://localhost:5500",
     mongo: {
         MONGO_USERNAME: "dasvv",
         MONGO_PASS: "dasv",

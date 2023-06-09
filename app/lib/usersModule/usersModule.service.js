@@ -23,6 +23,9 @@ module.exports = {
         userprojection.split(" ").forEach((key) => {
             if (dbUser[key]) newUser[key] = dbUser[key]
         })
+
+        // Emitir el evento de like al backend "socket"
+        // global.socket.emit('like', { like: true });
         const token = jwt.sign(newUser, "secret-key-vinc", { expiresIn: "46h" });
         return { message: "Usuario creado con exito", data: token };
     },

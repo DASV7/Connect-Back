@@ -7,6 +7,7 @@ const routes = require("./app/routes")
 const connectDbMongo = require("./app/services/db/dbConnection.js")
 const config = require('./app/config/index')
 const optionsSwagger = require('./app/loaders/swagger')
+const socketIOClient = require('socket.io-client');
 
 
 global.success = require("./app/helpers/responses").success;
@@ -24,6 +25,10 @@ app.use(bodyParser.json())
 
 //db Conection
 connectDbMongo()
+
+//socket  io
+const socket = socketIOClient(process.env.SOCKET || config.socket,);
+global.socket = socket;
 
 //swagger Implementation
 const swaggerSpec = swaggerJSDoc(optionsSwagger);
