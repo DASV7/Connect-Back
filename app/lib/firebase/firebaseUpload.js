@@ -2,7 +2,7 @@ const { initializeApp } = require("firebase/app")
 const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require("firebase/storage")
 const multer = require("multer")
 const { firebaseConfig } = require("../configuration/firebaseConfig")
-
+const User = require("../../models/users.model");
 
 initializeApp(firebaseConfig);
 
@@ -23,6 +23,13 @@ const serviceUploadFiles = async (req, res) => {
         };
         const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
         const downloadURL = await getDownloadURL(snapshot.ref);
+
+        await User.updateOne({ _id: req.body.id }, {
+            $push: {
+                pictures: { url: downloadURL, index: +req.body.index }
+            }
+        })
+
         return res.status(200).json({
             message: 'file uploaded to firebase storage',
             name: req.file.originalname,
