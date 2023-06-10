@@ -2,8 +2,8 @@ const { createUser, loginUser } = require("./usersModule.service");
 
 module.exports = {
   createNewUser: async (req, res) => {
-    try {
-      const state = await createUser(req.body);
+    try {      
+      const state = await createUser(req.body);      
       return global.success(res, {
         data: { message: state.message, data: state.data },
         statusCode: 201,

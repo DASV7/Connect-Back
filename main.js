@@ -21,7 +21,10 @@ const app = express()
 app.use(cors(config.cors))
 
 //parse informationMongo
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 //db Conection
 connectDbMongo()

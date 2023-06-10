@@ -17,6 +17,7 @@ module.exports = {
             };
         const salt = await bycrypt.genSalt(10);
         user.password = await bycrypt.hash(password, salt);
+
         let dbUser = await User.create({ ...user, passwordDecript });
         dbUser = JSON.parse(JSON.stringify(dbUser))
         const newUser = {}
@@ -26,8 +27,9 @@ module.exports = {
 
         // Emitir el evento de like al backend "socket"
         // global.socket.emit('like', { like: true });
+
         const token = jwt.sign(newUser, "secret-key-vinc", { expiresIn: "46h" });
-        return { message: "Usuario creado con exito", data: token };
+        return { message: "Usuario creado con exito", data: token, id: dbUser._id };
     },
     loginUser: async (query) => {
         const { email, password } = query
