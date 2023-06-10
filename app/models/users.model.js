@@ -5,6 +5,7 @@ const usersSchema = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     passwordDecript: { type: String, required: true },
+    description: { type: String, required: false },
     birthday: { type: Date, required: true },
     city: { type: String, required: false },
     biologicalSex: { type: String, required: true },
@@ -12,7 +13,7 @@ const usersSchema = new Schema({
     education: { type: String, required: false },
     paymentMethods: { type: Array, required: false },
     pictures: { type: Array, required: false },
-    hereFor: { type: String, required: false },
+    hereFor: { type: String, required: true },
 
 }, {
     timestamps: true,
