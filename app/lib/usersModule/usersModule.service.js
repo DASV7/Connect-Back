@@ -5,19 +5,17 @@ const { userprojection } = require("../../services/projects/users");
 const config = require("../../config/index");
 module.exports = {
     createUser: async (body) => {
-        let { name, email, password, birthday, biologicalSex } = body;
-        birthday = new Date(birthday);
-        const user = { name, email, password, birthday, biologicalSex };
+        body.birthday = new Date(body.birthday);
+        const user = body
         const dataVoid = Object.keys(user).filter((key) => !user[key]);
-        const passwordDecript = password
+        const passwordDecript = user.password
         if (dataVoid.length)
             throw {
-                message: `${dataVoid.join(", ")} ${dataVoid.length === 1 ? "es requerido" : "son requeridos"
-                    } para crear el usuario`,
+                message: `${dataVoid.join(", ")} ${dataVoid.length === 1 ? "es requerido" : "son requeridos"} para crear el usuario`,
                 codeStatus: 400,
             };
         const salt = await bycrypt.genSalt(10);
-        user.password = await bycrypt.hash(password, salt);
+        user.password = await bycrypt.hash(user.password, salt);
 
         let dbUser = await User.create({ ...user, passwordDecript });
         dbUser = JSON.parse(JSON.stringify(dbUser))

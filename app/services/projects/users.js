@@ -1,3 +1,3 @@
 module.exports = {
-    userprojection: "name email  birthday biologicalSex city profession education",
+    userprojection: "name email hereFor birthday biologicalSex city profession education",
 }
