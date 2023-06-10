@@ -9,6 +9,8 @@ const config = require('./app/config/index')
 const optionsSwagger = require('./app/loaders/swagger')
 const socketIOClient = require('socket.io-client');
 
+const getTokenFromHeader = require('./app/mddlewares/authM')
+
 
 global.success = require("./app/helpers/responses").success;
 global.error = require("./app/helpers/responses").error;
@@ -36,6 +38,8 @@ global.socket = socket;
 //swagger Implementation
 const swaggerSpec = swaggerJSDoc(optionsSwagger);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(getTokenFromHeader)
 
 //call routes with prefix
 app.use(config.api.prefix, routes());

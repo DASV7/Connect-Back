@@ -5,13 +5,13 @@ module.exports = {
     api: {
         prefix: '/api/v1/'
     },
-    socket:"http://localhost:5500",
+    socket: "http://localhost:5500",
     mongo: {
         MONGO_USERNAME: "dasvv",
         MONGO_PASS: "dasv",
         MONGO_DB: "pruebas",
     },
-    tokenSecret: process.env.TOKEN_SECRET,
+    tokenSecret: process.env.TOKEN_SECRET || "secret-key-vinc",
     cors: process.env.CORS || '*',
     port: 3001
 }

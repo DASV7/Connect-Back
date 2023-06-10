@@ -2,6 +2,7 @@ const User = require("../../models/users.model");
 const jwt = require('jsonwebtoken');
 const bycrypt = require("bcryptjs");
 const { userprojection } = require("../../services/projects/users");
+const config = require("../../config/index");
 module.exports = {
     createUser: async (body) => {
         let { name, email, password, birthday, biologicalSex } = body;
@@ -28,7 +29,7 @@ module.exports = {
         // Emitir el evento de like al backend "socket"
         // global.socket.emit('like', { like: true });
 
-        const token = jwt.sign(newUser, "secret-key-vinc", { expiresIn: "46h" });
+        const token = jwt.sign(newUser, config.tokenSecret, { expiresIn: "46h" });
         return { message: "Usuario creado con exito", data: token, id: dbUser._id };
     },
     loginUser: async (query) => {
@@ -38,7 +39,7 @@ module.exports = {
         const isMatch = await bycrypt.compare(password, user.password);
         if (!isMatch) throw { message: "Contraseña incorrecta", codeStatus: 401 };
         delete user.password
-        const token = jwt.sign(user, "secret-key-vinc", { expiresIn: "46h" });
+        const token = jwt.sign(user, config.tokenSecret, { expiresIn: "46h" });
         return { message: "Usuario logueado con exito", data: token };
 
     },

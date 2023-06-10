@@ -13,26 +13,12 @@ module.exports = {
         email: "dasvv7@gmail.com",
       },
     },
-    tags: [
-      {
-        name: "Usuarios",
-        description: "Operaciones relacionadas con usuarios",
-      },
-      {
-        name: "Autenticación",
-        description: "Operaciones relacionadas con autenticación",
-      },
-      {
-        name: "Products",
-        description: "Operaciones relacionadas los productos",
-      },
-    ],
     servers: [
       {
-        url: "http://localhost:3000/api",
+        url: "http://localhost:3000/api/v1",
         description: "first version server",
       },
     ],
   },
-  apis: [path.resolve(__dirname, "../") + "/routes/*.router.js"],
+  apis: [path.resolve(__dirname, "../") + "/routes/*.route.js"],
 };
