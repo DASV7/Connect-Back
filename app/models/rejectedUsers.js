@@ -7,4 +7,4 @@ const rejected = new Schema({
     timestamps: true,
 });
 
-module.exports = model("rejected", rejected);
+module.exports = model("dislike", rejected);

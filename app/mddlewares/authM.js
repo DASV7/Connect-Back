@@ -1,5 +1,6 @@
 const EndPointsWithoutToken = require("../utils/other/endPointsWithOutToken");
 const { verifyTokenSimpleSecret } = require("./verifyTokenSecret");
+const jwt_decode = require("jwt-decode");
 /**
  * Servicio para manejar todas las solicitudes
  * @param req solicitud entrante
@@ -13,6 +14,7 @@ const getTokenFromHeader = async (req, res, next) => {
     if (req.headers['vinc-jwt']) {
         const resToken = await verifyTokenSimpleSecret(req.headers['vinc-jwt']);
         if (resToken.status) {
+            req.token = jwt_decode(req.headers['vinc-jwt'])
             next();
             return {
                 status: true,

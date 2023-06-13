@@ -1,9 +1,9 @@
-const { likesConnectService } = require("./likesConnect.service");
+const { likesConnectService, rejectedConnectService } = require("./likesConnect.service");
 
 module.exports = {
     likesConnect: async (req, res) => {
         try {
-            const state = await likesConnectService(req.body);
+            const state = await likesConnectService(req);
             return res.status(200).json(state);
         } catch (error) {
             console.log("ERROR CREATE USER:", error.message);
@@ -12,7 +12,7 @@ module.exports = {
     },
     rejectedConnect: async (req, res) => {
         try {
-            const state = await likesConnectService(req.body);
+            const state = await rejectedConnectService(req);
             return res.status(200).json(state);
         } catch (error) {
             console.log("ERROR In rejected  USER:", error.message);
