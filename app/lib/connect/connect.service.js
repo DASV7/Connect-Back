@@ -6,20 +6,44 @@ const { Types: { ObjectId } } = require("mongoose");
 module.exports = {
     getUsersConnect: async ({ _id }) => {
 
-        //to do 
-        const liker = await likesUsers.find({ idUser: _id });
-        const reject = await rejectedUsers.find({ idUser: _id });
+        const dbResponse = UsuarioModelo.aggregate([
+            {
+                $lookup: {
+                    from: 'likesusers',
+                    let: { userId: '$_id' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: { $and: [{ $eq: ['$userWhoLike', '$$userId'] }, { $eq: ['$idUser', new ObjectId('6484b04bd76fb2eec4e89fda')] }] }
+                            }
+                        }
+                    ],
+                    as: 'likes'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'dislikes',
+                    let: { userId: '$_id' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: { $and: [{ $eq: ['$userRejected', '$$userId'] }, { $eq: ['$idUser', new ObjectId('6484b04bd76fb2eec4e89fda')] }] }
+                            }
+                        }
+                    ],
+                    as: 'dislikes'
+                }
+            },
 
-        const liked = liker.map(e => e.userWhoLike);
-        const rejected = reject.map(e => e.userRejected);
-
-        const state = await UsuarioModelo.find({
-            $and: [
-                { _id: { $nin: [...liked, ...rejected] } },
-                { _id: { $ne: _id } }
-            ]
-        }, { password: 0, __v: 0, passwordDecript: 0 }).limit(10)
-            .lean();
-        return state;
+            {
+                $match: {
+                    'likes': { $size: 0 },
+                    'dislikes': { $size: 0 },
+                    _id: { $ne: new ObjectId('6484b04bd76fb2eec4e89fda') }
+                }
+            }
+        ])
+        return dbResponse
     }
 };
