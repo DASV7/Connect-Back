@@ -1,4 +1,4 @@
-const { likesConnectService, rejectedConnectService } = require("./likesConnect.service");
+const { likesConnectService, rejectedConnectService } = require("./actionsConnect.service");
 
 module.exports = {
     likesConnect: async (req, res) => {

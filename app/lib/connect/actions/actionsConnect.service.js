@@ -9,6 +9,8 @@ module.exports = {
         const isCreated = await LikesModel.findOne({ userWhoLike, idUser: _id });
         if (isCreated) return isCreated
         const state = await LikesModel.create({ userWhoLike, idUser: _id });
+
+        global.socket.emit("newLike", "asdasddasd");
         return state
     },
     rejectedConnectService: async (req) => {

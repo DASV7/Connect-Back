@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const route = Router();
 const { getListFilters } = require('../lib/connect/connect.controller');
-const { likesConnect, rejectedConnect } = require('../lib/connect/likesConnect/likesConnect.controller');
+const { likesConnect, rejectedConnect } = require('../lib/connect/actions/actionsConnect.controller');
 
 module.exports = (app) => {
     app.use("/connect", route)
@@ -70,4 +70,5 @@ module.exports = (app) => {
     *         required: false
     */
     route.post('/dislike', rejectedConnect);
+    
 }

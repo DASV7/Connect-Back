@@ -14,7 +14,7 @@ module.exports = {
                     pipeline: [
                         {
                             $match: {
-                                $expr: { $and: [{ $eq: ['$userWhoLike', '$$userId'] }, { $eq: ['$idUser', new ObjectId('6484b04bd76fb2eec4e89fda')] }] }
+                                $expr: { $and: [{ $eq: ['$userWhoLike', '$$userId'] }, { $eq: ['$idUser', new ObjectId(_id)] }] }
                             }
                         }
                     ],
@@ -28,7 +28,7 @@ module.exports = {
                     pipeline: [
                         {
                             $match: {
-                                $expr: { $and: [{ $eq: ['$userRejected', '$$userId'] }, { $eq: ['$idUser', new ObjectId('6484b04bd76fb2eec4e89fda')] }] }
+                                $expr: { $and: [{ $eq: ['$userRejected', '$$userId'] }, { $eq: ['$idUser', new ObjectId(_id)] }] }
                             }
                         }
                     ],
@@ -40,7 +40,8 @@ module.exports = {
                 $match: {
                     'likes': { $size: 0 },
                     'dislikes': { $size: 0 },
-                    _id: { $ne: new ObjectId('6484b04bd76fb2eec4e89fda') }
+                    _id: { $ne: new ObjectId(_id) }
+
                 }
             }
         ])

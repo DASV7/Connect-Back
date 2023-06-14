@@ -13,5 +13,6 @@ module.exports = {
     },
     tokenSecret: process.env.TOKEN_SECRET || "secret-key-vinc",
     cors: process.env.CORS || '*',
-    port: 3001
+    port: 3001,
+    socket: process.env.SOCKET || "http://localhost:5500",
 }
