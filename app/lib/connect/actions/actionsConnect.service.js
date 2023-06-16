@@ -1,6 +1,7 @@
 const LikesModel = require("../../../models/likesuser");
 const RejectedModel = require("../../../models/rejectedUsers");
-const RoomChat = require("../../../models/roomChat.model");
+const Conversation = require("../../../models/conversation");
+const Users = require("../../../models/users.model");
 module.exports = {
     likesConnectService: async (req) => {
         const { userWhoLike } = req.body
@@ -13,10 +14,10 @@ module.exports = {
         const match = await isMatch({ _id, userWhoLike })
 
         if (!match) {
-            global.socket.emit("connect/newLike", { token: req.token, userWhoLike });
+            global.socket.emit("connect/newLike", { token: req.token, userFor: userWhoLike });
             return state
         }
-        global.socket.emit("newMatch", { token: req.token, userWhoLike });
+        global.socket.emit("newMatch", { token: req.token });
 
 
         return state
@@ -35,12 +36,11 @@ module.exports = {
 async function isMatch({ _id, userWhoLike }) {
     const state = await LikesModel.findOne({ userWhoLike: _id, idUser: userWhoLike }).lean();
     if (!state?._id) return false
-    await RoomChat.create({
-        idUserFirstLike: userWhoLike,
-        idUserSecondLike: _id,
+    await Conversation.create({
+        members: [userWhoLike, _id],
         type: "match",
         timeExpiration: null,
-        description: "Se han Dado Like...",
+        description: "Da el primer paso!",
     }).catch((err) => {
         console.log("Error Match", err)
     })
