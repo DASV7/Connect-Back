@@ -43,6 +43,11 @@ module.exports = {
                     _id: { $ne: new ObjectId(_id) }
 
                 }
+            },
+            {
+                $sort: {
+                    createdAt: -1
+                }
             }
         ])
         return dbResponse

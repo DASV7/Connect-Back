@@ -27,7 +27,7 @@ module.exports = {
         // Emitir el evento de like al backend "socket"
         // global.socket.emit('like', { like: true });
 
-        const token = jwt.sign(newUser, config.tokenSecret, { expiresIn: "46h" });
+        const token = jwt.sign(newUser, config.tokenSecret);
         return { message: "Usuario creado con exito", data: token, id: dbUser._id };
     },
     loginUser: async (query) => {
@@ -37,7 +37,7 @@ module.exports = {
         const isMatch = await bycrypt.compare(password, user.password);
         if (!isMatch) throw { message: "Contraseña incorrecta", codeStatus: 401 };
         delete user.password
-        const token = jwt.sign(user, config.tokenSecret, { expiresIn: "46h" });
+        const token = jwt.sign(user, config.tokenSecret);
         return { message: "Usuario logueado con exito", data: token };
 
     },
