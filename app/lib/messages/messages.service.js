@@ -10,9 +10,9 @@ module.exports = {
             model: 'user',
             select: userprojection,
         }).lean()
-
         return room
     },
+    
     getMessagesByIdConversation: async (token, { id }) => {
         const ifExists = await Conversation.findOne({ _id: id, members: { $in: [token._id] } })
             .populate({ path: 'members', model: 'user', select: userprojection }).lean()
