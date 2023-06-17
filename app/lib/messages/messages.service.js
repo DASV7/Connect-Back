@@ -22,6 +22,8 @@ module.exports = {
     },
 
     sendNewMessage: async (sender, info) => {
+
+        if (!info.message) return null
         const newMessage = new Messages({
             message: info.message,
             conversationId: info.conversationId,
@@ -30,6 +32,10 @@ module.exports = {
         })
 
         const createMessage = await newMessage.save()
+
+        const members = await Conversation.findOne({ _id: info.conversationId }).lean()
+        global.socket.emit("messages/newMessage", { token: sender, userFor: { toFront: info.conversationId, inSocket: members.members }, data: createMessage });
+
         return createMessage
 
     }
