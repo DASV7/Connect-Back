@@ -20,18 +20,16 @@ module.exports = {
         return ultimateMessages
     },
 
-    sendNewMessage: async (req, res) => {
-        const { body } = req
-        const { _id } = req.token
+    sendNewMessage: async (sender, info) => {
         const newMessage = new Messages({
-            body,
-            conversationId: body.conversationId,
-            sender: _id,
+            message: info.message,
+            conversationId: info.conversationId,
+            sender: sender._id,
             date: new Date(),
         })
 
-        await newMessage.save()
-        res.status(200).json(newMessage)
+        const createMessage = await newMessage.save()
+        return createMessage
 
     }
 
