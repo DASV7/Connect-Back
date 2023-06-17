@@ -1,4 +1,4 @@
-const { getMessagesUser } = require('../lib/messages/messages.controller');
+const { getConversations, getMessagesWithId } = require('../lib/messages/messages.controller');
 
 const { Router } = require('express');
 const route = Router();
@@ -16,7 +16,7 @@ module.exports = (app) => {
 
     /**
      * @swagger
-     * /api/v1/viewlikes:
+     * /api/v1/messages/conversations:
      *   get:
      *     tags: [Usuarios]
      *     description: Obtener likes a usuario
@@ -32,5 +32,26 @@ module.exports = (app) => {
      *         required: false
      */
 
-    route.get('/conversations', getMessagesUser);
+    route.get('/conversations', getConversations);
+
+    /**
+     * @swagger
+     * /api/v1/messages:
+     *   get:
+     *     tags: [Usuarios]
+     *     description: Obtener likes a usuario
+     *     responses:
+     *       200:
+     *         description: get  correctamente
+     *       500:
+     *         description: Ocurrió un error inesperado
+     *     parameters:
+     *       - name: options
+     *         in: query
+     *         description: Opciones de consulta
+     *         required: false
+     */
+
+    route.get('/', getMessagesWithId);
+
 }
