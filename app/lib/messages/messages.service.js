@@ -12,8 +12,10 @@ module.exports = {
         }).lean()
         return room
     },
-    
+
     getMessagesByIdConversation: async (token, { id }) => {
+
+        if (!id && id == 'NaN') return null
         const ifExists = await Conversation.findOne({ _id: id, members: { $in: [token._id] } })
             .populate({ path: 'members', model: 'user', select: userprojection }).lean()
         if (!ifExists?._id) return null
@@ -22,7 +24,6 @@ module.exports = {
     },
 
     sendNewMessage: async (sender, info) => {
-
         if (!info.message) return null
         const newMessage = new Messages({
             message: info.message,
@@ -34,7 +35,11 @@ module.exports = {
         const createMessage = await newMessage.save()
 
         const members = await Conversation.findOne({ _id: info.conversationId }).lean()
-        global.socket.emit("messages/newMessage", { token: sender, userFor: { toFront: info.conversationId, inSocket: members.members }, data: createMessage });
+        global.socket.emit("messages/newMessage", {
+            token: sender,
+            userFor: { toFront: info.conversationId, inSocket: members.members },
+            data: createMessage
+        });
 
         return createMessage
 

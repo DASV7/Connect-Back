@@ -12,6 +12,9 @@ module.exports = {
   },
   getMessagesWithId: async (req, res) => {
     try {
+      if (!req.query.id) {
+        return res.status(400).json({ message: "Id is required" })
+      }
       const state = await getMessagesByIdConversation(req.token, req.query);
       res.status(200).json({ data: state });
     } catch (error) {
