@@ -5,7 +5,6 @@ const { Types: { ObjectId } } = require("mongoose");
 
 module.exports = {
     getUsersConnect: async ({ _id }) => {
-
         const dbResponse = UsuarioModelo.aggregate([
             {
                 $lookup: {
