@@ -31,9 +31,7 @@ module.exports = {
             sender: sender._id,
             date: new Date(),
         })
-
         const createMessage = await newMessage.save()
-
         const members = await Conversation.findOne({ _id: info.conversationId }).lean()
         global.socket.emit("messages/newMessage", {
             token: sender,
