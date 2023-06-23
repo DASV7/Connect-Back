@@ -9,24 +9,24 @@ module.exports = {
         if (!userWhoLike) throw new Error("userLiked is required")
         const isCreated = await LikesModel.findOne({ userWhoLike, idUser: _id });
         if (isCreated) return isCreated
-        const state = await LikesModel.create({ userWhoLike, idUser: _id });
 
         const match = await isMatch({ _id, userWhoLike })
-
+        let state = {}
         if (!match) {
+            state = await LikesModel.create({ userWhoLike, idUser: _id });
             global.socket.emit("connect/newLike", { token: req.token, userFor: userWhoLike });
-            return state
+            return
         }
+        const likeDeleted = await LikesModel.deleteOne({ userWhoLike: _id, idUser: userWhoLike })
         global.socket.emit("newMatch", { token: req.token });
-
-
         return state
     },
     rejectedConnectService: async (req) => {
         const { userRejected } = req.body
         const { _id } = req.token
-        if (!userRejected) throw new Error("userLiked is required")
+        if (!userRejected) throw new Error("El usuario ya dio like previamente")
         const isCreated = await RejectedModel.findOne({ userRejected, idUser: _id });
+        const likeDeleted = await LikesModel.deleteOne({ userWhoLike: _id, idUser: userRejected })
         if (isCreated?._id) return isCreated
         const state = await RejectedModel.create({ userRejected, idUser: _id });
         return state
