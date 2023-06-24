@@ -21,6 +21,7 @@ module.exports = {
         global.socket.emit("newMatch", { token: req.token });
         return state
     },
+    
     rejectedConnectService: async (req) => {
         const { userRejected } = req.body
         const { _id } = req.token
@@ -31,7 +32,7 @@ module.exports = {
         const state = await RejectedModel.create({ userRejected, idUser: _id });
         return state
     },
-}
+}  
 
 async function isMatch({ _id, userWhoLike }) {
     const state = await LikesModel.findOne({ userWhoLike: _id, idUser: userWhoLike }).lean();
