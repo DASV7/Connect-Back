@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bycrypt = require("bcryptjs");
 const { userprojection } = require("../../services/projects/users");
 const config = require("../../config/index");
+
 module.exports = {
     createUser: async (body) => {
         body.birthday = new Date(body.birthday);

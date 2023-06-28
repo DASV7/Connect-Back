@@ -1,10 +1,9 @@
-const modelPreferences = require("../../lib/preferences/preferences");
+const modelPreferences = require("../../models/preferences");
 
 module.exports = {
-  async userPreferences(params) {
-    const userPrefences = new modelPreferences(params);
+  async userPreferences(params, token) {
+    const userPrefences = new modelPreferences({ ...params, idUser: token._id });
     const newPreferences = await userPrefences.save();
-    console.log(newPreferences);
     return newPreferences;
   },
 };

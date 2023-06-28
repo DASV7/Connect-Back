@@ -5,7 +5,6 @@ const preferencesSchema = new mongoose.Schema({
     name: { type: String, required: false },
     description: { type: String, required: false },    
     idUser: { type: Schema.Types.ObjectId, ref: "users" },
-
     sexuality: { type: String, required: false },    
     height: { type: String, required: false },    
     feelings: { type: String, required: false },    
