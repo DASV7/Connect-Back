@@ -14,7 +14,7 @@ const usersSchema = new Schema({
     paymentMethods: { type: Array, required: false },
     pictures: { type: Array, required: false },
     lastLogin: { type: Date, required: false },
-    lastLoginActive: { type: Date, required: false },
+    lastActive: { type: Date, required: false },
     status: { type: String, required: false },
     hereFor: { type: String, required: true },
 
