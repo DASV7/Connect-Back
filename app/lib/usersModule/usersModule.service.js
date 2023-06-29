@@ -38,6 +38,7 @@ module.exports = {
         const isMatch = await bycrypt.compare(password, user.password);
         if (!isMatch) throw { message: "Contraseña incorrecta", codeStatus: 401 };
         delete user.password
+        await User.findOneAndUpdate({ _id: user._id }, { $set: { lastLogin: new Date() } }, { new: true })
         const token = jwt.sign(user, config.tokenSecret);
         return { message: "Usuario logueado con exito", data: token };
 
