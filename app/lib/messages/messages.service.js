@@ -31,19 +31,24 @@ module.exports = {
             sender: sender._id,
             date: new Date(),
         })
+        const coversation = await Conversation.findOne({ _id: info.conversationId }).lean()
+        if (!coversation) return new Error("Conversation not found")
         const createMessage = await newMessage.save()
-        const members = await Conversation.findOne({ _id: info.conversationId }).lean()
+
+        await Conversation.updateOne({ _id: info.conversationId },
+            {
+                countMessages: (coversation?.countMessages || 0) + 1,
+                ultimateMessage: createMessage.message
+            }, { new: true }).lean()
+
         global.socket.emit("messages/newMessage", {
             token: sender,
-            userFor: { toFront: info.conversationId, inSocket: members.members },
+            userFor: { toFront: info.conversationId, inSocket: coversation.members },
             data: createMessage
         });
 
         return createMessage
-
     }
-
-
 
 
 }

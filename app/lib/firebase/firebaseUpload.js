@@ -3,13 +3,15 @@ const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require("fireb
 const multer = require("multer")
 const { firebaseConfig } = require("../configuration/firebaseConfig")
 const User = require("../../models/users.model");
+const { userprojection } = require("../../services/projects/users");
+const config = require("../../config/index");
+const jwt = require('jsonwebtoken');
 
 initializeApp(firebaseConfig);
 
 
+
 const storage = getStorage();
-
-
 const upload = multer({ storage: multer.memoryStorage() });
 
 const serviceUploadFiles = async (req, res) => {
@@ -24,18 +26,23 @@ const serviceUploadFiles = async (req, res) => {
         const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
         const downloadURL = await getDownloadURL(snapshot.ref);
 
-        await User.updateOne({ _id: req.body.id }, {
-            $push: {
-                pictures: { url: downloadURL, index: +req.body.index }
-            }
+        const userPictures = await User.findOneAndUpdate(
+            { _id: req.body.id },
+            {
+                $push: {
+                    pictures: { url: downloadURL, index: +req.body.index }
+                }
+            },
+            { new: true }
+        ).lean();
+        const userProject = {}
+        userprojection.split(" ").forEach((key) => {
+            if (userPictures[key]) userProject[key] = userPictures[key]
         })
 
-        return res.status(200).json({
-            message: 'file uploaded to firebase storage',
-            name: req.file.originalname,
-            type: req.file.mimetype,
-            downloadURL: downloadURL
-        })
+        const token = jwt.sign(userProject, config.tokenSecret);
+
+        return res.status(200).json({ token })
     } catch (error) {
         return res.status(400).send(error.message)
     }
