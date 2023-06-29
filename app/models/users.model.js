@@ -13,6 +13,7 @@ const usersSchema = new Schema({
     education: { type: String, required: false },
     paymentMethods: { type: Array, required: false },
     pictures: { type: Array, required: false },
+    lastLogin: { type: Date, required: false },
     hereFor: { type: String, required: true },
 
 }, {
