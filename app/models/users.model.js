@@ -17,6 +17,7 @@ const usersSchema = new Schema({
     lastActive: { type: Date, required: false },
     status: { type: String, required: false },
     hereFor: { type: String, required: true },
+    bloqued: { type: Boolean, required: false, default: false },
 
 }, {
     timestamps: true,
