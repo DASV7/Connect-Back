@@ -1,6 +1,7 @@
 const Users = require("../../models/users.model");
 const Preferens = require("../../models/preferences");
 const { userprojection } = require("../../services/projects/users");
+
 module.exports = {
   findUserProfile: async ({ _id }) => {
     const user = await Users.findOne({ _id }, userprojection).lean();

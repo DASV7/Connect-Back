@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const route = Router();
-const { createNewUser, initSesionUser } = require("../lib/usersModule/usersModule.controller")
+const { createNewUser, initSesionUser, deleteAccount, updateProfile } = require("../lib/usersModule/usersModule.controller")
 const { isMongoReady } = require("../helpers/validateRoute.mdwr");
 const { serviceUploadFiles } = require("../lib/firebase/firebaseUpload");
 
@@ -73,6 +73,44 @@ module.exports = (app) => {
      *         required: false
      */
     route.post('/updloadpicture', upload.single("filename"), serviceUploadFiles);
+
+    /**
+     * @swagger
+     * /api/v1/deleteAccount:
+     *   post:
+     *     tags: [Usuarios]
+     *     description: delete Account
+     *     responses:
+     *       200:
+     *         description: Usuario creado correctamente
+     *       500:
+     *         description: Ocurrió un error inesperado
+     *     parameters:
+     *       - name: options
+     *         in: query
+     *         description: Opciones de consulta
+     *         required: false
+     */
+    route.delete('/deleteAccount', deleteAccount );
+
+    /**
+     * @swagger
+     * /api/v1/deleteAccount:
+     *   post:
+     *     tags: [Usuarios]
+     *     description: delete Account
+     *     responses:
+     *       200:
+     *         description: Usuario creado correctamente
+     *       500:
+     *         description: Ocurrió un error inesperado
+     *     parameters:
+     *       - name: options
+     *         in: query
+     *         description: Opciones de consulta
+     *         required: false
+     */
+    route.patch('/updateProfile', updateProfile );
 
 
 }
