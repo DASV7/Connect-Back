@@ -34,7 +34,7 @@ module.exports = {
   
   deleteAccount: async (req, res) => {
     try {
-      const state = await deleteAccount(req.body);
+      const state = await deleteAccount(req.token);
       res.status(200).json(state);
     } catch (error) {
       console.log("Erorr al traer datos del usuario:", error.message);
