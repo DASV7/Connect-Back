@@ -41,6 +41,16 @@ module.exports = {
         await User.findOneAndUpdate({ _id: user._id }, { $set: { lastLogin: new Date() } }, { new: true })
         const token = jwt.sign(user, config.tokenSecret);
         return { message: "Usuario logueado con exito", data: token };
-
     },
+    updateProfile: async (params, token) => {
+        const userData = {
+            _id: token._id,
+            ...params,
+          };
+          const updateProfile = await User.findByIdAndUpdate(
+            token._id, userData, {upsert: true, new: true
+            },userprojection).lean()
+            const newToken = jwt.sign(updateProfile, config.tokenSecret);
+            return  newToken;
+    }
 };
