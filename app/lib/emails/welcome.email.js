@@ -107,6 +107,9 @@ const mailOptions = (user) => {
               font-size: 14px;
               color: #777777;
             }
+            .floating-button{
+              color: white;
+            }
           </style>
         </head>
         <body>
