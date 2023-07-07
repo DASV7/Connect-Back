@@ -1,4 +1,4 @@
-const { getConversations, getMessagesWithId, sendMessage } = require('../lib/messages/messages.controller');
+const { getConversations, getMessagesWithId, sendMessage ,undoMatch } = require('../lib/messages/messages.controller');
 
 const { Router } = require('express');
 const route = Router();
@@ -75,4 +75,23 @@ module.exports = (app) => {
 
     route.post('/', sendMessage);
 
+
+    /**
+    * @swagger
+    * /api/v1/messages:
+    *   post:
+    *     tags: [Usuarios]
+    *     description: Obtener likes a usuario
+    *     responses:
+    *       200:
+    *         description: get  correctamente
+    *       500:
+    *         description: Ocurrió un error inesperado
+    *     parameters:
+    *       - name: options
+    *         in: query
+    *         description: Opciones de consulta
+    *         required: false
+    */
+    route.get('/undomatch', undoMatch);
 }

@@ -48,6 +48,12 @@ module.exports = {
         });
 
         return createMessage
+    },
+    undoMatchUser: async (query) => {
+        if (!query.id) return null
+        await Conversation.deleteOne({ _id: query.id })
+        await Messages.deleteMany({ conversationId: query.id })
+        return true
     }
 
 
