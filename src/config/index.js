@@ -9,7 +9,7 @@ module.exports = {
     mongo: {
         MONGO_USERNAME: "dasvv",
         MONGO_PASS: "dasv",
-        MONGO_DB: "pruebas",
+        MONGO_DB: process.env.MongoDb || "vinc-rc",
     },
     tokenSecret: process.env.TOKEN_SECRET || "secret-key-vinc",
     cors: process.env.CORS || '*',
