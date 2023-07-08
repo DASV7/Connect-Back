@@ -3,17 +3,17 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
-const routes = require("./app/routes")
-const connectDbMongo = require("./app/services/db/dbConnection.js")
-const config = require('./app/config/index')
-const optionsSwagger = require('./app/loaders/swagger')
+const routes = require("./src/routes")
+const connectDbMongo = require("./src/services/db/dbConnection.js")
+const config = require('./src/config/index')
+const optionsSwagger = require('./src/loaders/swagger')
 const socketIOClient = require('socket.io-client');
 
-const getTokenFromHeader = require('./app/mddlewares/authM')
+const getTokenFromHeader = require('./src/mddlewares/authM')
 
 
-global.success = require("./app/helpers/responses").success;
-global.error = require("./app/helpers/responses").error;
+global.success = require("./src/helpers/responses").success;
+global.error = require("./src/helpers/responses").error;
 
 require('dotenv').config();
 
