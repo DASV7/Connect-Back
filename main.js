@@ -32,8 +32,31 @@ app.use(bodyParser.urlencoded({
 connectDbMongo()
 
 //socket  io
-const socket = socketIOClient(process.env.SOCKET || config.socket,);
-global.socket = socket;
+const MAX_RECONNECT_ATTEMPTS = 5; // Número máximo de intentos de reconexión
+const RECONNECT_INTERVAL = 3000; // Intervalo de tiempo entre cada intento de reconexión en milisegundos
+
+let reconnectAttempts = 0;
+let socket;
+
+function connectToSocket() {
+  socket = socketIOClient(process.env.SOCKET || config.socket);
+
+  socket.on('connect', () => {
+    console.log('Socket connected');
+    reconnectAttempts = 0;
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Socket disconnected');
+    if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+      setTimeout(connectToSocket, RECONNECT_INTERVAL);
+      reconnectAttempts++;
+    }
+  });
+  global.socket = socket;
+}
+
+connectToSocket();
 
 //swagger Implementation
 const swaggerSpec = swaggerJSDoc(optionsSwagger);
