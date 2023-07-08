@@ -40,12 +40,11 @@ let socket;
 
 function connectToSocket() {
   socket = socketIOClient(process.env.SOCKET || config.socket);
-
   socket.on('connect', () => {
     console.log('Socket connected');
     reconnectAttempts = 0;
   });
-
+  
   socket.on('disconnect', () => {
     console.log('Socket disconnected');
     if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
