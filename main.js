@@ -40,7 +40,7 @@ let socket;
 
 function connectToSocket() {
   socket = socketIOClient(process.env.SOCKET || config.socket, { auth: { user: "---server-back-vinc---" } });
-  
+
   socket.on('connect', () => {
     console.log("------------Conectado a socket-----------");
     reconnectAttempts = 0;
