@@ -39,16 +39,16 @@ let reconnectAttempts = 0;
 let socket;
 
 function connectToSocket() {
-  socket = socketIOClient(process.env.SOCKET || config.socket);
+  socket = socketIOClient(process.env.SOCKET || config.socket, { auth: { user: "---server-back-vinc---" } });
+  
   socket.on('connect', () => {
-    console.log('Socket connected');
+    console.log("------------Conectado a socket-----------");
     reconnectAttempts = 0;
   });
-  
+
   socket.on('disconnect', () => {
-    console.log('Socket disconnected');
     if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-      setTimeout(connectToSocket, RECONNECT_INTERVAL);
+      setTimeout((() => connectToSocket()), 5000);
       reconnectAttempts++;
     }
   });
