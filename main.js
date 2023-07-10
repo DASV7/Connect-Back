@@ -32,8 +32,8 @@ app.use(bodyParser.urlencoded({
 connectDbMongo()
 
 //socket  io
-const MAX_RECONNECT_ATTEMPTS = 5; // Número máximo de intentos de reconexión
-const RECONNECT_INTERVAL = 3000; // Intervalo de tiempo entre cada intento de reconexión en milisegundos
+const MAX_RECONNECT_ATTEMPTS = 5;
+
 
 let reconnectAttempts = 0;
 let socket;
