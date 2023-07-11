@@ -9,8 +9,6 @@ const jwt = require('jsonwebtoken');
 
 initializeApp(firebaseConfig);
 
-
-
 const storage = getStorage();
 const upload = multer({ storage: multer.memoryStorage() });
 

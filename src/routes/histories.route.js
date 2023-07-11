@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const route = Router();
-
 const { uploadHistories } = require('../lib/histories/histories.controller');
 
 const multer = require("multer")
