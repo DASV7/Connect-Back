@@ -49,7 +49,7 @@ const uploadHistories = async (req, res) => {
 
     const token = jwt.sign(userProject, config.tokenSecret);
 
-    return res.status(200).json({ token });
+    return { token };
   } catch (error) {
     return res.status(400).send(error.message);
   }
