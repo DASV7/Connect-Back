@@ -1,4 +1,4 @@
-const { returnHistories } = require("../returnHistories/returnHistories.service");
+const { returnHistories } = require("../../lib/returnHistories/returnHIstories.service");
 
 const modules = (module.exports = {});
 
