@@ -1,19 +1,10 @@
 const { Router } = require('express');
 const route = Router();
-const { uploadHistories } = require('../lib/histories/histories.controller');
+const { returnHistories } = require('../lib/returnHistories/returnHistories.controller');
 
-const multer = require("multer")
-const upload = multer({ storage: multer.memoryStorage() });
 module.exports = (app) => {
-    app.use("/histories", route)
-
-    /**
- * @swagger
- * tags:
- *   name: viewlikes
- *   description: Endpoints relacionados con usuarios
- */
-
+    app.use("/returnHistories", route)
+    
     /**
      * @swagger
      * /api/v1/viewlikes:
@@ -32,5 +23,5 @@ module.exports = (app) => {
      *         required: false
      */
 
-    route.post('/create', upload.single("histories"), uploadHistories);
+    route.get('/', returnHistories);
 }

@@ -17,6 +17,7 @@ const usersSchema = new Schema({
     status: { type: String, required: false },
     hereFor: { type: String, required: true },
     bloqued: { type: Boolean, required: false, default: false },
+    haveHistories: { type: Boolean, required: false, default: false },
     histories: { type: Array, required: false },
     ip: { type: String, required: false },
 
