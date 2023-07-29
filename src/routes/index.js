@@ -7,6 +7,8 @@ const userPreferences = require("./userPreferences.route");
 const userProfile = require("./profile.route");
 const Histories = require("./histories.route");
 const returnHistories = require("./returnHistories");
+const filters = require("./filters.router");
+
 module.exports = () => {
   const app = Router();
   users(app);
@@ -17,5 +19,6 @@ module.exports = () => {
   userProfile(app);
   Histories(app);
   returnHistories(app)
+  filters(app)
   return app;
 };

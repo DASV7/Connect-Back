@@ -1,4 +1,4 @@
-const errorMessage = require("../utils/other/tokenExceptions");
+    const errorMessage = require("../utils/other/tokenExceptions");
 const config = require("../config/index");
 const jwt = require("jsonwebtoken");
 module.exports = {
