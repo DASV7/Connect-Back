@@ -8,6 +8,7 @@ const userProfile = require("./profile.route");
 const Histories = require("./histories.route");
 const returnHistories = require("./returnHistories");
 const filters = require("./filters.router");
+const followers = require("./followers");
 
 module.exports = () => {
   const app = Router();
@@ -20,5 +21,6 @@ module.exports = () => {
   Histories(app);
   returnHistories(app)
   filters(app)
+  followers(app)
   return app;
 };
