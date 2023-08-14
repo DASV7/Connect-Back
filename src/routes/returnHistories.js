@@ -4,7 +4,6 @@ const { returnHistories } = require('../lib/returnHistories/returnHistories.cont
 
 module.exports = (app) => {
     app.use("/returnHistories", route)
-    
     /**
      * @swagger
      * /api/v1/viewlikes:
