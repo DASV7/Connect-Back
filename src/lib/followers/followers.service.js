@@ -12,7 +12,7 @@ module.exports = {
   },
 
   getFollow: async (myId) => {
-    const followedUsers = await Followers.find({ myId: myId });
+    const followedUsers = await Followers.find({ myId: myId }).lean()
     const usersWithHistories = await User.aggregate([
       {
         $match: {
@@ -20,12 +20,23 @@ module.exports = {
           haveHistories: true,
         },
       },
+
+      // $lookup: {
+      //   from: "histories", // Cambia "histories" por el nombre de tu colección de historias
+      //   localField: "_id",
+      //   foreignField: "userId",
+      //   as: "histories",
+      // },
       {
-        $lookup: {
-          from: "histories", // Cambia "histories" por el nombre de tu colección de historias
-          localField: "_id",
-          foreignField: "userId",
-          as: "histories",
+        $project: {
+          password: 0,
+          passwordDecript: 0,
+          email: 0, 
+          updatedAt: 0,
+          createdAt: 0,
+          __v: 0,
+
+
         },
       },
     ]);
